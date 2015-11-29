@@ -6,8 +6,7 @@
 
 (require 'clojure.pprint)
 
-(defn home-handler
-    [request]
+(defn home-handler [request]
     (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
 
 (defn wrap-version [handler]
@@ -15,7 +14,8 @@
         (handler (assoc request :app-version "0.1"))))
 
 (defn wrap-spy [handler]
-    ""
+    "Output (to the server console) some pretty-printed representations 
+    of the Request and Response maps."
     (fn [request]
         (println "-------------------------------")
         (println "Incoming Request Map:")
@@ -37,6 +37,21 @@
     (HEAD "/" [] "Preview something"))
 
 (defn -main []
+    "This is the idiomatic way of applying the various middleware pieces,
+     using the -> macro. It works, and all of the middleware still functions correctly,
+     however I still must get a better understanding of how this works. I basically
+     just lined the middlewares from inside-to-out based on the original -main implementation."
+    (run-server
+        (-> all-routes
+            (wrap-defaults site-defaults)
+            (wrap-version)
+            (wrap-spy)
+            (reload/wrap-reload)
+            ) {:port 5000}))
+
+(defn -main-ORIGINAL []
+    "This is the non-idiomatic way of applying the various middleware pieces.
+     It works, but the nesting gets a little crazy."
     (run-server 
         (reload/wrap-reload 
             (wrap-spy 
