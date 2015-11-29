@@ -8,7 +8,7 @@
 
 (defn home-handler
     [request]
-    (str "Blaagh version " (:app-version request)))
+    (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
 
 (defn wrap-version [handler]
     (fn [request]
@@ -40,6 +40,6 @@
     (run-server 
         (reload/wrap-reload 
             (wrap-spy 
-                (wrap-version #'all-routes))) {:port 5000}))
-                    ; (wrap-defaults #'all-routes site-defaults)))) {:port 5000}))
+                (wrap-version
+                    (wrap-defaults #'all-routes site-defaults)))) {:port 5000}))
     ; (run-server (reload/wrap-reload #'all-routes) {:port 5000}))
