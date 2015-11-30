@@ -2,12 +2,20 @@
   (:require [compojure.core :refer :all]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :as reload]
-            [ring.middleware.defaults :refer :all]))
+            [ring.middleware.defaults :refer :all]
+            [ring.middleware.params :refer :all]
+            [selmer.parser :refer [render-file]]))
 
 (require 'clojure.pprint)
 
+(selmer.parser/cache-off!) ; template caching switch
+
 (defn home-handler [request]
     (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
+
+(defn selmer-handler [request]
+    (let [name (:name (:params request))]
+        (render-file "templates/selmer.html" {:name name :req request})))
 
 (defn wrap-version [handler]
     (fn [request]
@@ -28,6 +36,8 @@
 
 (defroutes all-routes
     (GET "/" [request] home-handler)
+    ; (GET "/selmer" [] (render-file "templates/selmer.html" {:name "Jerry"}))
+    (GET "/selmer/:name" [request] selmer-handler)
     ; (GET "/" [] "Show something")
     (POST "/" [] "Create something")
     (PUT "/" [] "Replace something")
@@ -44,8 +54,9 @@
     (run-server
         (-> all-routes
             (wrap-defaults site-defaults)
+            (wrap-params)
             (wrap-version)
-            (wrap-spy)
+            ; (wrap-spy)
             (reload/wrap-reload)
             ) {:port 5000}))
 

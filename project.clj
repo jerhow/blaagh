@@ -8,4 +8,5 @@
                  [http-kit "2.1.16"]
                  [ring/ring-devel "1.4.0"]
                  [ring/ring-core "1.4.0"]
-                 [ring/ring-defaults "0.1.5"]])
+                 [ring/ring-defaults "0.1.5"]
+                 [selmer "0.9.5"]])
