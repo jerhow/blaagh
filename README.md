@@ -10,6 +10,7 @@ that I'll identify as I progress.
 ## Usage
 
 Well, currently it'll run with this:
+
 $ lein run -m blaagh.core
 
 ...that's about all I can tell you right now. I'm happy it's working at all, 
