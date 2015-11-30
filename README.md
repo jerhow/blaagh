@@ -1,4 +1,4 @@
-# blaagh
+# Blaagh
 
 So I'm learning Clojure, and I'd like to get more practical with it,
 so a web app seems like a good way to build something interesting.
