@@ -17,6 +17,15 @@
     (let [name (:name (:params request))]
         (render-file "templates/selmer.html" {:name name :req request})))
 
+(defn post-something-handler-GET [request]
+    (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))] 
+        (render-file "templates/post-something.html" {:anti-forgery-token anti-forgery-token})))
+
+(defn post-something-handler-POST [request]
+    (let [name (:name (:params request)) 
+          comment (:comment (:params request))]
+    (render-file "templates/post-something.html" {:name name :comment comment})))
+
 (defn wrap-version [handler]
     (fn [request]
         (handler (assoc request :app-version "0.1"))))
@@ -38,6 +47,8 @@
     (GET "/" [request] home-handler)
     ; (GET "/selmer" [] (render-file "templates/selmer.html" {:name "Jerry"}))
     (GET "/selmer/:name" [request] selmer-handler)
+    (GET "/post-something" [request] post-something-handler-GET)
+    (POST "/post-something" [request] post-something-handler-POST)
     ; (GET "/" [] "Show something")
     (POST "/" [] "Create something")
     (PUT "/" [] "Replace something")
