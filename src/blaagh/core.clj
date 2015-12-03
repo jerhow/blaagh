@@ -1,12 +1,11 @@
 (ns blaagh.core
-  (:require [compojure.core :refer :all]
+  (:require [blaagh.middleware :as middleware]
+            [compojure.core :refer :all]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :as reload]
             [ring.middleware.defaults :refer :all]
             [ring.middleware.params :refer :all]
             [selmer.parser :refer [render-file]]))
-
-(require 'clojure.pprint)
 
 (selmer.parser/cache-off!) ; template caching switch
 
@@ -25,23 +24,6 @@
     (let [name (:name (:params request)) 
           comment (:comment (:params request))]
     (render-file "templates/post-something.html" {:name name :comment comment})))
-
-(defn wrap-version [handler]
-    (fn [request]
-        (handler (assoc request :app-version "0.1"))))
-
-(defn wrap-spy [handler]
-    "Output (to the server console) some pretty-printed representations 
-    of the Request and Response maps."
-    (fn [request]
-        (println "-------------------------------")
-        (println "Incoming Request Map:")
-        (clojure.pprint/pprint request)
-        (let [response (handler request)]
-            (println "Outgoing Response Map:")
-            (clojure.pprint/pprint response)
-            (println "-------------------------------")
-            response)))
 
 (defroutes all-routes
     (GET "/" [request] home-handler)
@@ -66,8 +48,8 @@
         (-> all-routes
             (wrap-defaults site-defaults)
             (wrap-params)
-            (wrap-version)
-            ; (wrap-spy)
+            (middleware/wrap-version)
+            ; (middleware/wrap-spy)
             (reload/wrap-reload)
             ) {:port 5000}))
 
@@ -76,7 +58,7 @@
      It works, but the nesting gets a little crazy."
     (run-server 
         (reload/wrap-reload 
-            (wrap-spy 
-                (wrap-version
+            (middleware/wrap-spy 
+                (middleware/wrap-version
                     (wrap-defaults #'all-routes site-defaults)))) {:port 5000}))
     ; (run-server (reload/wrap-reload #'all-routes) {:port 5000}))
