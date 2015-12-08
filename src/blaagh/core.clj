@@ -1,5 +1,6 @@
 (ns blaagh.core
   (:require [blaagh.middleware :as middleware]
+            [blaagh.controllers :as controllers]
             [compojure.core :refer :all]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :as reload]
@@ -9,28 +10,12 @@
 
 (selmer.parser/cache-off!) ; template caching switch
 
-(defn home-handler [request]
-    (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
-
-(defn selmer-handler [request]
-    (let [name (:name (:params request))]
-        (render-file "templates/selmer.html" {:name name :req request})))
-
-(defn post-something-handler-GET [request]
-    (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))] 
-        (render-file "templates/post-something.html" {:anti-forgery-token anti-forgery-token})))
-
-(defn post-something-handler-POST [request]
-    (let [name (:name (:params request)) 
-          comment (:comment (:params request))]
-    (render-file "templates/post-something.html" {:name name :comment comment})))
-
 (defroutes all-routes
-    (GET "/" [request] home-handler)
+    (GET "/" [request] controllers/home-handler)
     ; (GET "/selmer" [] (render-file "templates/selmer.html" {:name "Jerry"}))
-    (GET "/selmer/:name" [request] selmer-handler)
-    (GET "/post-something" [request] post-something-handler-GET)
-    (POST "/post-something" [request] post-something-handler-POST)
+    (GET "/selmer/:name" [request] controllers/selmer-handler)
+    (GET "/post-something" [request] controllers/post-something-handler-GET)
+    (POST "/post-something" [request] controllers/post-something-handler-POST)
     ; (GET "/" [] "Show something")
     (POST "/" [] "Create something")
     (PUT "/" [] "Replace something")
