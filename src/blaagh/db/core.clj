@@ -20,3 +20,20 @@
             "CREATE TABLE baz (name text); ")
         (catch Exception e 
             (println e))))
+
+(defn populate-tables []
+    (try 
+        (sql/db-do-commands db-conn 
+            "INSERT INTO foo (name) VALUES
+                ('Rick'),
+                ('Carol'),
+                ('Daryl'),
+                ('Michonne'),
+                ('Glenn'),
+                ('Maggie'),
+                ('Carl'),
+                ('Sasha'),
+                ('Abraham'),
+                ('Morgan');")
+        (catch Exception e 
+            (println e))))
