@@ -9,4 +9,6 @@
                  [ring/ring-devel "1.4.0"]
                  [ring/ring-core "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
-                 [selmer "0.9.5"]])
+                 [selmer "0.9.5"]
+                 [org.clojure/java.jdbc "LATEST"]
+                 [org.xerial/sqlite-jdbc "LATEST"]])

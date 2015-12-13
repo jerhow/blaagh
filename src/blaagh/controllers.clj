@@ -1,5 +1,6 @@
 (ns blaagh.controllers
-    (:require [selmer.parser :refer [render-file]]))
+    (:require [selmer.parser :refer [render-file]]
+              [blaagh.db.core :as db]))
 
 (defn home-handler [request]
     (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
@@ -16,3 +17,6 @@
     (let [name (:name (:params request)) 
           comment (:comment (:params request))]
     (render-file "templates/post-something.html" {:name name :comment comment})))
+
+(defn names-handler [request]
+    db/get-names)

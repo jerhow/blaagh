@@ -16,6 +16,7 @@
     (GET "/selmer/:name" [request] controllers/selmer-handler)
     (GET "/post-something" [request] controllers/post-something-handler-GET)
     (POST "/post-something" [request] controllers/post-something-handler-POST)
+    (GET "/names" [request] controllers/names-handler)
     ; (GET "/" [] "Show something")
     (POST "/" [] "Create something")
     (PUT "/" [] "Replace something")
