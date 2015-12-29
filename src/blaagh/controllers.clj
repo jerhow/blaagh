@@ -19,4 +19,4 @@
     (render-file "templates/post-something.html" {:name name :comment comment})))
 
 (defn names-handler [request]
-    db/get-names)
+    (db/get-names))
