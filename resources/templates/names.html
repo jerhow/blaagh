@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta content='IE=edge;chrome=1' http-equiv='X-UA-Compatible'>
+  <meta content='width=device-width' name='viewport'>
+  <title>NAMES test template</title>
+</head>
+<body>
+
+<h3>
+Demo in which we fetch a simple table of names from the database and display the results
+in a template:
+</h3>
+
+<p>
+  <ul>
+  <!--
+  The idea here being, name-pair is a single element of the map, i.e., {:name "The Dude"}
+  -->
+  {% for name-pair in names %}
+    <li>{{name-pair.name}}</li>
+  {% endfor %}
+  </ul>
+</p>
+
+</body>
+</html>
