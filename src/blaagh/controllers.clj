@@ -19,5 +19,5 @@
     (render-file "templates/post-something.html" {:name name :comment comment})))
 
 (defn names-handler [request]
-    (let [names (db/get-names)]
+    (let [names (db/get-all-names)]
         (render-file "templates/names.html" {:names names})))

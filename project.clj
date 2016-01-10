@@ -11,4 +11,5 @@
                  [ring/ring-defaults "0.1.5"]
                  [selmer "0.9.5"]
                  [org.clojure/java.jdbc "LATEST"]
-                 [org.xerial/sqlite-jdbc "LATEST"]])
+                 [org.xerial/sqlite-jdbc "LATEST"]
+                 [yesql "0.5.1"]])
