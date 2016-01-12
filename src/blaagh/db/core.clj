@@ -11,10 +11,13 @@
    {:connection db-spec})
 
 (defn get-all-names []
-    (let [results (get-names)]
-        (cond
-            (empty? results) {:status 404}
-            :else results)))
+    (try
+        (let [results (get-names)]
+            (cond
+                (empty? results) {:status 404}
+                :else results))
+    (catch Exception e 
+        (println e))))
 
 (defn create-tables []
     (try 
