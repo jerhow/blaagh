@@ -28,6 +28,11 @@
         (catch Exception e 
             (println e))))
 
+(defn create-tables-yesql []
+    (create-table-foo!)
+    (create-table-bar!)
+    (create-table-baz!))
+
 (defn populate-tables []
     (try 
         (sql/db-do-commands db-spec 
