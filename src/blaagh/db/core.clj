@@ -20,35 +20,9 @@
         (println e))))
 
 (defn create-tables []
-    (try 
-        (sql/db-do-commands db-spec 
-            "CREATE TABLE foo (name text); "
-            "CREATE TABLE bar (name text); "
-            "CREATE TABLE baz (name text); ")
-        (catch Exception e 
-            (println e))))
-
-(defn create-tables-yesql []
     (create-table-foo!)
     (create-table-bar!)
     (create-table-baz!))
 
-(defn populate-tables-yesql []
+(defn populate-tables []
     (populate-table-foo!))
-
-(defn populate-tables-DEPRECATED []
-    (try 
-        (sql/db-do-commands db-spec 
-            "INSERT INTO foo (name) VALUES
-                ('Rick'),
-                ('Carol'),
-                ('Daryl'),
-                ('Michonne'),
-                ('Glenn'),
-                ('Maggie'),
-                ('Carl'),
-                ('Sasha'),
-                ('Abraham'),
-                ('Morgan');")
-        (catch Exception e 
-            (println e))))
