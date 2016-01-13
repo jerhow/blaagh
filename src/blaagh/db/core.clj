@@ -33,7 +33,10 @@
     (create-table-bar!)
     (create-table-baz!))
 
-(defn populate-tables []
+(defn populate-tables-yesql []
+    (populate-table-foo!))
+
+(defn populate-tables-DEPRECATED []
     (try 
         (sql/db-do-commands db-spec 
             "INSERT INTO foo (name) VALUES

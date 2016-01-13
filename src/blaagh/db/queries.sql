@@ -14,3 +14,17 @@ CREATE TABLE bar (name text);
 -- name: create-table-baz!
 -- creates a test table 'baz'
 CREATE TABLE baz (name text);
+
+-- name: populate-table-foo!
+-- populates the test table 'foo'
+INSERT INTO foo (name) 
+VALUES  ('Rick'),
+        ('Carol'),
+        ('Daryl'),
+        ('Michonne'),
+        ('Glenn'),
+        ('Maggie'),
+        ('Carl'),
+        ('Sasha'),
+        ('Abraham'),
+        ('Morgan');
