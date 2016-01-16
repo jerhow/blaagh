@@ -22,7 +22,8 @@
 (defn create-tables []
     (create-table-foo!)
     (create-table-bar!)
-    (create-table-baz!))
+    (create-table-baz!)
+    (create-table-posts!))
 
 (defn populate-tables []
     (populate-table-foo!))
