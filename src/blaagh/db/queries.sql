@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS posts (
     id int PRIMARY KEY, 
     dt datetime DEFAULT CURRENT_TIMESTAMP NOT NULL, 
     live BOOLEAN NOT NULL DEFAULT (0), 
+    slug TEXT NOT NULL DEFAULT (''),
     title TEXT NOT NULL DEFAULT (''), 
     content TEXT NOT NULL DEFAULT ('')
 );
