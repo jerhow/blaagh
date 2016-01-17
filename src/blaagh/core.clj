@@ -24,7 +24,10 @@
     ; (DELETE "/" [] "Annihilate something")
     ; (OPTIONS "/" [] "Appease something")
     ; (HEAD "/" [] "Preview something")
-    (GET "/:slug" [request] controllers/show-post-handler))
+    (GET "/post/new" [request] controllers/new-post-handler)
+    (GET "/:slug" [request] controllers/show-post-handler)
+    ; (POST "/post/new" [request] controllers/write-new-post-handler)
+)
 
 (defn -main []
     "This is the idiomatic way of applying the various middleware pieces,

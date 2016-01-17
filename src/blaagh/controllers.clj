@@ -30,3 +30,8 @@
             (render-file "templates/404.html" {:slug slug})
             (render-file "templates/post.html" {:post post}))
         ))
+(defn new-post-handler [request]
+    (render-file "templates/new-post.html" {:request request}))
+
+; (defn write-new-post-handler [request]
+;     (render-file "templates/new-post.html" {:request request}))
