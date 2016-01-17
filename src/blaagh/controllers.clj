@@ -21,3 +21,12 @@
 (defn names-handler [request]
     (let [names (db/get-all-names)]
         (render-file "templates/names.html" {:names names})))
+
+(defn show-post-handler [request]
+    (let [slug (:slug (:params request)) 
+          db-row (db/get-post-by-slug {:slug slug})
+          post (first db-row)]
+          (if (nil? post)
+            (render-file "templates/404.html" {:slug slug})
+            (render-file "templates/post.html" {:post post}))
+        ))

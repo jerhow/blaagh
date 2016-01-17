@@ -32,10 +32,34 @@ VALUES  ('Rick'),
 -- name: create-table-posts!
 -- Sets up our table for blog posts
 CREATE TABLE IF NOT EXISTS posts (
-    id int PRIMARY KEY, 
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
     dt datetime DEFAULT CURRENT_TIMESTAMP NOT NULL, 
     live BOOLEAN NOT NULL DEFAULT (0), 
     slug TEXT NOT NULL DEFAULT (''),
     title TEXT NOT NULL DEFAULT (''), 
     content TEXT NOT NULL DEFAULT ('')
 );
+
+-- name: populate-table-posts1!
+-- Sets up a test record in the post table
+INSERT INTO posts (slug, title, content)
+VALUES (
+    'test-post-01',
+    'TEST POST 01',
+    '<h2>This is test post 01</h2>'
+);
+
+-- name: populate-table-posts2!
+-- Sets up a test record in the post table
+INSERT INTO posts (slug, title, content)
+VALUES (
+    'test-post-02',
+    'TEST POST 02',
+    '<h2>This is test post 02</h2>'
+);
+
+-- name: get-post-by-slug
+-- Fetches a single post by slug
+SELECT id, dt, live, slug, title, content
+FROM posts
+WHERE slug = :slug

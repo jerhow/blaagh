@@ -26,4 +26,6 @@
     (create-table-posts!))
 
 (defn populate-tables []
-    (populate-table-foo!))
+    (populate-table-foo!)
+    (populate-table-posts1!)
+    (populate-table-posts2!))

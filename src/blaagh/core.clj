@@ -18,12 +18,13 @@
     (POST "/post-something" [request] controllers/post-something-handler-POST)
     (GET "/names" [request] controllers/names-handler)
     ; (GET "/" [] "Show something")
-    (POST "/" [] "Create something")
-    (PUT "/" [] "Replace something")
-    (PATCH "/" [] "Modify Something")
-    (DELETE "/" [] "Annihilate something")
-    (OPTIONS "/" [] "Appease something")
-    (HEAD "/" [] "Preview something"))
+    ; (POST "/" [] "Create something")
+    ; (PUT "/" [] "Replace something")
+    ; (PATCH "/" [] "Modify Something")
+    ; (DELETE "/" [] "Annihilate something")
+    ; (OPTIONS "/" [] "Appease something")
+    ; (HEAD "/" [] "Preview something")
+    (GET "/:slug" [request] controllers/show-post-handler))
 
 (defn -main []
     "This is the idiomatic way of applying the various middleware pieces,
