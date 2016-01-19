@@ -5,15 +5,26 @@
 NEW POST:
 </h4>
 
-<form id="new_post_form" name="new_post_form" action="" method="POST">
+<form id="new_post_form" name="new_post_form" action="/post/new" method="POST">
+    <input type="hidden" id="__anti-forgery-token" name="__anti-forgery-token" 
+      value="{{anti-forgery-token}}" />
     <table id="new_form_table">
         <tr>
             <td valign="top">
                 Live?
             </td>
             <td>
-                <input type="radio" name="live" value="0" checked> No
-                <input type="radio" name="live" value="1"> Yes
+                <input type="radio" name="live" value="0" 
+                    {% comment %} The point here is to provide a default state
+                    for the radio button, in this case 0. Since only false and nil
+                    are falsy, the two conditions are safe stacked together.
+                    Im doing it this way because Selmer seems to not have a
+                    way to express "else if", but I may be mistaken. Either way,
+                    this way will keep things moving for now. {% endcomment %}
+                    {% ifequal request.params.live nil %}checked{% endifequal %}
+                    {% ifequal request.params.live 0 %}checked{% endifequal %}> No
+                <input type="radio" name="live" value="1"
+                    {% ifequal request.params.live 1 %}checked{% endifequal %}> Yes
             </td>
         </tr>
         <tr>
@@ -21,7 +32,8 @@ NEW POST:
                 Slug:
             </td>
             <td>
-                <input type="text" id="slug" name="slug" size="75" maxlength="255" />
+                <input type="text" id="slug" name="slug" size="75" maxlength="255"
+                    value="{{request.params.slug}}" />
             </td>
         </tr>
         <tr>
@@ -29,7 +41,8 @@ NEW POST:
                 Title:
             </td>
             <td>
-                <input type="text" id="title" name="title" size="75" maxlength="255" />
+                <input type="text" id="title" name="title" size="75" maxlength="255"
+                    value="{{request.params.slug}}" />
             </td>
         </tr>
         <tr>
@@ -37,7 +50,8 @@ NEW POST:
                 Content:
             </td>
             <td>
-                <textarea id="content" name="content" rows="15" cols="85"></textarea>
+                <textarea id="content" name="content" rows="15" cols="85"
+                    >{{request.params.content}}</textarea>
             </td>
         </tr>
         <tr>

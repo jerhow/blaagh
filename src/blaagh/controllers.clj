@@ -30,8 +30,12 @@
             (render-file "templates/404.html" {:slug slug})
             (render-file "templates/post.html" {:post post}))
         ))
-(defn new-post-handler [request]
-    (render-file "templates/new-post.html" {:request request :title "New Post"}))
+(defn new-post [request]
+    (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))] 
+        (render-file "templates/new-post.html" {:request request 
+            :title "New Post" :anti-forgery-token anti-forgery-token})))
 
-; (defn write-new-post-handler [request]
-;     (render-file "templates/new-post.html" {:request request}))
+(defn new-post! [request]
+    (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))] 
+        (render-file "templates/new-post.html" {:request request 
+            :title "NEW POST" :anti-forgery-token anti-forgery-token})))
