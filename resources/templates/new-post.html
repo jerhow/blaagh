@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
-  <meta content='IE=edge;chrome=1' http-equiv='X-UA-Compatible'>
-  <meta content='width=device-width' name='viewport'>
-  <link rel="canonical" href="http://example.com/" />
-  <title>New Post</title>
-</head>
+{% extends "base.html" %}
 
-<body>
-
+{% block content %}
 <h4 style="text-decoration: underline;">
 NEW POST:
 </h4>
@@ -46,7 +37,7 @@ NEW POST:
                 Content:
             </td>
             <td>
-                <textarea id="content" name="content" rows="15" cols="85">Hello</textarea>
+                <textarea id="content" name="content" rows="15" cols="85"></textarea>
             </td>
         </tr>
         <tr>
@@ -54,7 +45,6 @@ NEW POST:
                 <input type="submit" id="submit" name="submit" value=" Submit " />
             </td>
         </tr>
+    </table>
 </form>
-
-</body>
-</html>
+{% endblock %}

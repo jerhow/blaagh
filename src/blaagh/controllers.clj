@@ -31,7 +31,7 @@
             (render-file "templates/post.html" {:post post}))
         ))
 (defn new-post-handler [request]
-    (render-file "templates/new-post.html" {:request request}))
+    (render-file "templates/new-post.html" {:request request :title "New Post"}))
 
 ; (defn write-new-post-handler [request]
 ;     (render-file "templates/new-post.html" {:request request}))
