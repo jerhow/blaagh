@@ -30,8 +30,7 @@
           post (first db-row)]
           (if (nil? post)
             (render-file "templates/404.html" {:slug slug})
-            (render-file "templates/post.html" {:post post}))
-        ))
+            (render-file "templates/post.html" {:post post}))))
 
 (defn process-new-post! [request]
     "Writes a new post to the DB, then redirects somewhere (for the moment, the home page)."
