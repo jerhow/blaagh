@@ -25,7 +25,7 @@
     ; (OPTIONS "/" [] "Appease something")
     ; (HEAD "/" [] "Preview something")
     (GET "/post/new" [request] controllers/new-post)
-    (POST "/post/new" [request] controllers/new-post!)
+    (POST "/post/new" [request] controllers/new-post)
     (GET "/:slug" [request] controllers/show-post-handler)
     ; (POST "/post/new" [request] controllers/write-new-post-handler)
 )

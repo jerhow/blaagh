@@ -63,3 +63,12 @@ VALUES (
 SELECT id, dt, live, slug, title, content
 FROM posts
 WHERE slug = :slug
+
+-- name: write-new-post!
+-- Writes a new post to the DB
+INSERT INTO posts (
+    slug, title, content
+)
+VALUES (
+    :slug, :title, :content
+);

@@ -62,10 +62,12 @@ NEW POST:
     </table>
 </form>
 
-{% ifequal validation.result "false" %}
-<p>
-Oops! {{validation.msg}}.
-</p>
+{% ifequal request.request-method :post %}
+    {% ifequal validation.result "false" %}
+    <p>
+    Oops! {{validation.msg}}.
+    </p>
+    {% endifequal %}
 {% endifequal %}
 
 {% endblock %}
