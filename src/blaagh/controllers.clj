@@ -52,3 +52,7 @@
                     :title "NEW POST"
                     :anti-forgery-token anti-forgery-token 
                     :validation validation}))))
+
+(defn admin-show-posts [request]
+    (let [posts (db/admin-get-posts)]
+        (render-file "templates/admin-show-posts.html" {:request request :posts posts})))

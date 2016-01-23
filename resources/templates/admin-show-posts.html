@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4 style="text-decoration: underline;">
+POSTS:
+</h4>
+
+<table id="posts_table" border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>ID</td>
+        <td>Date/Time</td>
+        <td>Slug</td>
+        <td>Title</td>
+        <td>Content</td>
+    </tr>
+{% for post in posts %}
+    <tr>
+        <td><a href="admin/post/edit/{{post.id}}">{{post.id}}</td>
+        <td>{{post.dt}}</td>
+        <td>{{post.slug}}</td>
+        <td>{{post.title}}</td>
+        <td>{{post.content}}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
