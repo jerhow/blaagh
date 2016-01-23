@@ -54,5 +54,8 @@
                     :validation validation}))))
 
 (defn admin-show-posts [request]
-    (let [posts (db/admin-get-posts)]
+    ; (let [posts (db/admin-get-posts {:sort "dt"})]
+    (let [sort-column "dt" order "DESC"
+          query (str "SELECT id, dt, live, slug, title, content FROM posts ORDER BY " sort-column " " order)
+          posts (db/raw-fetch-query query)]
         (render-file "templates/admin-show-posts.html" {:request request :posts posts})))

@@ -29,3 +29,6 @@
     (populate-table-foo!)
     (populate-table-posts1!)
     (populate-table-posts2!))
+
+(defn raw-fetch-query [query]
+    (clojure.java.jdbc/query db-spec [query]))

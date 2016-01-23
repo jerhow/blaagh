@@ -72,8 +72,3 @@ INSERT INTO posts (
 VALUES (
     :slug, :title, :content
 );
-
--- name: admin-get-posts
--- Fetches a list of posts
-SELECT id, dt, live, slug, title, content
-FROM posts;
