@@ -42,7 +42,7 @@ NEW POST:
             </td>
             <td>
                 <input type="text" id="title" name="title" size="75" maxlength="255"
-                    value="{{request.params.slug}}" />
+                    value="{{request.params.title}}" />
             </td>
         </tr>
         <tr>
@@ -61,4 +61,11 @@ NEW POST:
         </tr>
     </table>
 </form>
+
+{% ifequal validation.result "false" %}
+<p>
+Oops! {{validation.msg}}.
+</p>
+{% endifequal %}
+
 {% endblock %}

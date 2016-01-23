@@ -1,6 +1,7 @@
 (ns blaagh.controllers
     (:require [selmer.parser :refer [render-file]]
-              [blaagh.db.core :as db]))
+              [blaagh.db.core :as db]
+              [blaagh.helpers :as helpers]))
 
 (defn home-handler [request]
     (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
@@ -36,6 +37,12 @@
             :title "New Post" :anti-forgery-token anti-forgery-token})))
 
 (defn new-post! [request]
-    (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))] 
-        (render-file "templates/new-post.html" {:request request 
-            :title "NEW POST" :anti-forgery-token anti-forgery-token})))
+    (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))
+          validation (helpers/validate-new-post request)]
+        (if (true? (:result validation))
+            (println "Looking good, write to the DB") ;; TODO NEXT
+            (render-file "templates/new-post.html" {
+                :request request
+                :title "NEW POST"
+                :anti-forgery-token anti-forgery-token 
+                :validation validation}))))
