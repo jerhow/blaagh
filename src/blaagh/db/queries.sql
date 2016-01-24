@@ -78,3 +78,9 @@ VALUES (
 SELECT id, dt, live, slug, title, content
 FROM posts
 WHERE id = :id;
+
+-- name: update-post!
+-- Updates a previous post in the DB
+UPDATE posts
+SET live = :live, slug = :slug, title = :title, content = :content
+WHERE id = :id;

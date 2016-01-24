@@ -35,7 +35,7 @@
             (render-file "templates/post.html" {:post post}))))
 
 (defn process-new-post! 
-    "Writes a new post to the DB, then redirects somewhere (for the moment, the home page)."
+    "Writes a new post to the DB, then redirects to /admin/posts"
     [request]
     (db/write-new-post! {
         :live (:live (:params request)) 
@@ -67,8 +67,21 @@
 
 (defn edit-post-handler [request]
     (let [id (:id (:params request)) 
-          post (db/get-post-by-id {:id id})]
-          (println "HELLO")
+          db-row (db/get-post-by-id {:id id})
+          post (first db-row)
+          anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))]
           (if (nil? post)
             (render-file "templates/404.html" {:id id})
-            (render-file "templates/new-post.html" {:post post :request request}))))
+            (render-file "templates/new-post.html" {:edit-mode true 
+                :post post :request request :anti-forgery-token anti-forgery-token}))))
+
+(defn edit-post-update! 
+    "Updates an existing post the DB, then redirects to /admin/posts"
+    [request]
+    (db/update-post! {
+        :id (:post_id (:params request))
+        :live (:live (:params request)) 
+        :slug (:slug (:params request)) 
+        :title (:title (:params request)) 
+        :content (:content (:params request))})
+    (redirect "/admin/posts"))

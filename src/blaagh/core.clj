@@ -12,6 +12,8 @@
 
 (defroutes all-routes
     (GET "/" [request] controllers/home-handler)
+    (GET "/admin/post/edit/:id" [request] controllers/edit-post-handler)
+    (POST "/admin/post/update" [request] controllers/edit-post-update!)
     ; (GET "/selmer" [] (render-file "templates/selmer.html" {:name "Jerry"}))
     (GET "/selmer/:name" [request] controllers/selmer-handler)
     (GET "/post-something" [request] controllers/post-something-handler-GET)
@@ -26,7 +28,6 @@
     ; (HEAD "/" [] "Preview something")
     (GET "/admin/post/new" [request] controllers/new-post)
     (POST "/admin/post/new" [request] controllers/new-post)
-    (GET "/admin/post/edit/:id" [request] controllers/edit-post-handler)
     (GET "/admin/posts" [request] controllers/admin-show-posts)
     (GET "/:slug" [request] controllers/show-post-handler)
     ; (POST "/post/new" [request] controllers/write-new-post-handler)

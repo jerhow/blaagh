@@ -6,8 +6,9 @@ POSTS:
 </h4>
 
 <table id="posts_table" border="1" cellpadding="0" cellspacing="0">
-    <tr>
+    <tr style="font-weight: bold; background-color: #e0e0e0;">
         <td>ID</td>
+        <td>Live?</td>
         <td>Date/Time</td>
         <td>Slug</td>
         <td>Title</td>
@@ -15,9 +16,15 @@ POSTS:
     </tr>
 {% for post in posts %}
     <tr>
-        <td><a href="admin/post/edit/{{post.id}}">{{post.id}}</td>
+        <td><a href="/admin/post/edit/{{post.id}}" title="Edit post">{{post.id}}</td>
+        <td>{% ifequal post.live 1 %}
+            <span style="color: green; font-weight: bold;">Yes</span>
+            {% else %}
+            <span style="color: red;">No</span>
+            {% endifequal %}
+        </td>
         <td>{{post.dt}}</td>
-        <td>{{post.slug}}</td>
+        <td><a href="/{{post.slug}}" title="View post on site" target="_blank">{{post.slug}}</td>
         <td>{{post.title}}</td>
         <td>{{post.content}}</td>
     </tr>

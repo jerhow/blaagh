@@ -1,19 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <h4 style="text-decoration: underline;">
+{% if edit-mode %}
+EDIT POST:
+{% else %}
 NEW POST:
+{% endif %}
 </h4>
 
-<form id="new_post_form" name="new_post_form" action="/admin/post/new" method="POST">
+<form id="new_post_form" name="new_post_form" 
+    {% if edit-mode %}
+        action="/admin/post/update" 
+    {% else %}
+        action="/admin/post/new" 
+    {% endif %}
+        method="POST">
     <input type="hidden" id="__anti-forgery-token" name="__anti-forgery-token" 
       value="{{anti-forgery-token}}" />
-    <table id="new_form_table">
+    <table id="post_form_table">
         <tr>
             <td valign="top">
                 Live?
             </td>
             <td>
+            {% if edit-mode %}
+                <input type="radio" name="live" value="0" 
+                    {% comment %} Same comment as above. {% endcomment %}
+                    {% ifequal post.live nil %} checked{% endifequal %}
+                    {% ifequal post.live 0 %} checked{% endifequal %}> No
+                <input type="radio" name="live" value="1"
+                    {% ifequal post.live 1 %} checked{% endifequal %}> Yes
+            {% else %}
                 <input type="radio" name="live" value="0" 
                     {% comment %} The point here is to provide a default state
                     for the radio button, in this case 0. Since only false and nil
@@ -21,10 +40,11 @@ NEW POST:
                     Im doing it this way because Selmer seems to not have a
                     way to express "else if", but I may be mistaken. Either way,
                     this way will keep things moving for now. {% endcomment %}
-                    {% ifequal request.params.live nil %}checked{% endifequal %}
-                    {% ifequal request.params.live 0 %}checked{% endifequal %}> No
+                    {% ifequal request.params.live nil %} checked{% endifequal %}
+                    {% ifequal request.params.live 0 %} checked{% endifequal %}> No
                 <input type="radio" name="live" value="1"
-                    {% ifequal request.params.live 1 %}checked{% endifequal %}> Yes
+                    {% ifequal request.params.live 1 %} checked{% endifequal %}> Yes
+            {% endif %}
             </td>
         </tr>
         <tr>
@@ -32,8 +52,13 @@ NEW POST:
                 Slug:
             </td>
             <td>
+            {% if edit-mode %}
+                <input type="text" id="slug" name="slug" size="75" maxlength="255"
+                    value="{{post.slug}}" />
+            {% else %}
                 <input type="text" id="slug" name="slug" size="75" maxlength="255"
                     value="{{request.params.slug}}" />
+            {% endif %}
             </td>
         </tr>
         <tr>
@@ -41,8 +66,13 @@ NEW POST:
                 Title:
             </td>
             <td>
+            {% if edit-mode %}
+                <input type="text" id="title" name="title" size="75" maxlength="255"
+                    value="{{post.title}}" />
+            {% else %}
                 <input type="text" id="title" name="title" size="75" maxlength="255"
                     value="{{request.params.title}}" />
+            {% endif %}
             </td>
         </tr>
         <tr>
@@ -50,8 +80,13 @@ NEW POST:
                 Content:
             </td>
             <td>
+            {% if edit-mode %}
+                <textarea id="content" name="content" rows="15" cols="85"
+                    >{{post.content}}</textarea>
+            {% else %}
                 <textarea id="content" name="content" rows="15" cols="85"
                     >{{request.params.content}}</textarea>
+            {% endif %}
             </td>
         </tr>
         <tr>
@@ -60,6 +95,9 @@ NEW POST:
             </td>
         </tr>
     </table>
+    {% if edit-mode %}
+    <input type="hidden" id="post_id" name="post_id" value="{{post.id}}" />
+    {% endif %}
 </form>
 
 {% ifequal request.request-method :post %} {# Not super happy with this, but it's convenient for now. #}
