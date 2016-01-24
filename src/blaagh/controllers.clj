@@ -26,7 +26,6 @@
         (render-file "templates/names.html" {:names names})))
 
 (defn show-post-handler [request]
-    ; (println "HELLO")
     (let [slug (:slug (:params request)) 
           db-row (db/get-post-by-slug {:slug slug})
           post (first db-row)]
