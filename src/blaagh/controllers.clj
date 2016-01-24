@@ -63,7 +63,6 @@
           order (if (blank? (:order (:params request))) "DESC" (:order (:params request)))
           query (str "SELECT id, dt, live, slug, title, content FROM posts ORDER BY " sort-column " " order)
           posts (db/raw-fetch-query query)]
-        (println sort-column)
         (render-file "templates/admin-show-posts.html" {:request request :posts posts})))
 
 (defn edit-post-handler [request]
