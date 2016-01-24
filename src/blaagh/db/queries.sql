@@ -62,13 +62,19 @@ VALUES (
 -- Fetches a single post by slug
 SELECT id, dt, live, slug, title, content
 FROM posts
-WHERE slug = :slug
+WHERE slug = :slug;
 
 -- name: write-new-post!
 -- Writes a new post to the DB
 INSERT INTO posts (
-    slug, title, content
+    live, slug, title, content
 )
 VALUES (
-    :slug, :title, :content
+    :live, :slug, :title, :content
 );
+
+-- name: get-post-by-id
+-- Fetches a post by ID
+SELECT id, dt, live, slug, title, content
+FROM posts
+WHERE id = :id;

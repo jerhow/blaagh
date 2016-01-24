@@ -2,7 +2,8 @@
     (:require [selmer.parser :refer [render-file]]
               [blaagh.db.core :as db]
               [blaagh.helpers :as helpers]
-              [ring.util.response :refer [redirect]]))
+              [ring.util.response :refer [redirect]]
+              [clojure.string :refer [blank?]]))
 
 (defn home-handler [request]
     (str "Blaagh version " (:app-version request) " foo=" (:foo (:params request))))
@@ -25,6 +26,7 @@
         (render-file "templates/names.html" {:names names})))
 
 (defn show-post-handler [request]
+    ; (println "HELLO")
     (let [slug (:slug (:params request)) 
           db-row (db/get-post-by-slug {:slug slug})
           post (first db-row)]
@@ -32,13 +34,15 @@
             (render-file "templates/404.html" {:slug slug})
             (render-file "templates/post.html" {:post post}))))
 
-(defn process-new-post! [request]
+(defn process-new-post! 
     "Writes a new post to the DB, then redirects somewhere (for the moment, the home page)."
+    [request]
     (db/write-new-post! {
+        :live (:live (:params request)) 
         :slug (:slug (:params request)) 
         :title (:title (:params request)) 
         :content (:content (:params request))})
-    (redirect "/"))
+    (redirect "/admin/posts"))
 
 (defn new-post [request]
     (let [anti-forgery-token (:ring.middleware.anti-forgery/anti-forgery-token (:session request))
@@ -55,7 +59,17 @@
 
 (defn admin-show-posts [request]
     ; (let [posts (db/admin-get-posts {:sort "dt"})]
-    (let [sort-column "dt" order "DESC"
+    (let [sort-column (if (blank? (:sort (:params request))) "dt" (:sort (:params request)))
+          order (if (blank? (:order (:params request))) "DESC" (:order (:params request)))
           query (str "SELECT id, dt, live, slug, title, content FROM posts ORDER BY " sort-column " " order)
           posts (db/raw-fetch-query query)]
+        (println sort-column)
         (render-file "templates/admin-show-posts.html" {:request request :posts posts})))
+
+(defn edit-post-handler [request]
+    (let [id (:id (:params request)) 
+          post (db/get-post-by-id {:id id})]
+          (println "HELLO")
+          (if (nil? post)
+            (render-file "templates/404.html" {:id id})
+            (render-file "templates/new-post.html" {:post post :request request}))))

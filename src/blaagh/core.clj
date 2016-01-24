@@ -26,6 +26,7 @@
     ; (HEAD "/" [] "Preview something")
     (GET "/admin/post/new" [request] controllers/new-post)
     (POST "/admin/post/new" [request] controllers/new-post)
+    (GET "/admin/post/edit/:id" [request] controllers/edit-post-handler)
     (GET "/admin/posts" [request] controllers/admin-show-posts)
     (GET "/:slug" [request] controllers/show-post-handler)
     ; (POST "/post/new" [request] controllers/write-new-post-handler)
