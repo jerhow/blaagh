@@ -5,9 +5,9 @@
 POSTS:
 </h4>
 
-<table id="posts_table" border="1" cellpadding="0" cellspacing="0">
+<table id="posts_table" border="1" cellpadding="2" cellspacing="0">
     <tr style="font-weight: bold; background-color: #e0e0e0;">
-        <td>ID</td>
+        <td>&nbsp;</td>
         <td>Live?</td>
         <td>Date/Time</td>
         <td>Slug</td>
@@ -16,7 +16,7 @@ POSTS:
     </tr>
 {% for post in posts %}
     <tr>
-        <td><a href="/admin/post/edit/{{post.id}}" title="Edit post">{{post.id}}</td>
+        <td><a href="/admin/post/edit/{{post.id}}" title="Edit post">Edit</td>
         <td>{% ifequal post.live 1 %}
             <span style="color: green; font-weight: bold;">Yes</span>
             {% else %}
