@@ -57,10 +57,15 @@
                     :validation validation}))))
 
 (defn admin-show-posts [request]
-    ; (let [posts (db/admin-get-posts {:sort "dt"})]
     (let [sort-column (if (blank? (:sort (:params request))) "dt" (:sort (:params request)))
           order (if (blank? (:order (:params request))) "DESC" (:order (:params request)))
-          query (str "SELECT id, dt, live, slug, title, content FROM posts ORDER BY " sort-column " " order)
+          query (str "SELECT id, dt, live, slug, title, 
+                          CASE WHEN length(content) > 50 THEN
+                            substr(content, 0, 50) || '...'
+                          ELSE
+                            content
+                          END AS content
+                      FROM posts ORDER BY " sort-column " " order)
           posts (db/raw-fetch-query query)]
         (render-file "templates/admin-show-posts.html" {:request request :posts posts})))
 
