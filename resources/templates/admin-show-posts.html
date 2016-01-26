@@ -13,6 +13,7 @@ POSTS:
         <td>Slug</td>
         <td>Title</td>
         <td>Content</td>
+        <td>&nbsp;</td>
     </tr>
 {% for post in posts %}
     <tr>
@@ -27,6 +28,7 @@ POSTS:
         <td><a href="/{{post.slug}}" title="View post on site" target="_blank">{{post.slug}}</td>
         <td>{{post.title}}</td>
         <td>{{post.content}}</td>
+        <td><a href="/admin/post/delete/{{post.id}}" title="View post on site" target="_blank">Delete</td>
     </tr>
 {% endfor %}
 </table>
