@@ -80,7 +80,7 @@
                 :post post :request request :anti-forgery-token anti-forgery-token}))))
 
 (defn edit-post-update! 
-    "Updates an existing post the DB, then redirects to /admin/posts"
+    "Updates an existing post in the DB, then redirects to /admin/posts"
     [request]
     (db/update-post! {
         :id (:post_id (:params request))

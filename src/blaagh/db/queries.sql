@@ -84,3 +84,8 @@ WHERE id = :id;
 UPDATE posts
 SET live = :live, slug = :slug, title = :title, content = :content
 WHERE id = :id;
+
+-- name: delete-post!
+-- Deletes a post by ID
+DELETE FROM posts
+WHERE id = :id;
