@@ -89,3 +89,10 @@
         :title (:title (:params request)) 
         :content (:content (:params request))})
     (redirect "/admin/posts"))
+
+(defn edit-post-delete!
+    "Deletes a post in the DB, then redirects to /admin/posts"
+    [request]
+    (db/delete-post! {
+        :id (:post_id (:params request))})
+    (redirect "/admin/posts"))
