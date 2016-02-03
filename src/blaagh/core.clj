@@ -14,6 +14,7 @@
     (GET "/" [request] controllers/home-handler)
     (GET "/admin/post/edit/:id" [request] controllers/edit-post-handler)
     (POST "/admin/post/update" [request] controllers/edit-post-update!)
+    (POST "/admin/post/delete" [request] controllers/edit-post-delete!)
     ; (GET "/selmer" [] (render-file "templates/selmer.html" {:name "Jerry"}))
     (GET "/selmer/:name" [request] controllers/selmer-handler)
     (GET "/post-something" [request] controllers/post-something-handler-GET)
