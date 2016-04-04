@@ -11,6 +11,7 @@
   BODY {
     font-family: Georgia, Arial, Helvetica, sans-serif;
     font-size: 100%;
+    height: 100%;
   }
   #heading1 {
     text-align: center;
@@ -38,28 +39,127 @@
     background-color: #144454;
     height: 5px;
   }
+  #heading3 {
+    /*background-color: #E9F0F2;*/
+    /*text-align: left;*/
+    /*border-top: 1px solid black;*/
+    /*border-left: 1px solid black;*/
+    /*vertical-align: middle;*/
+    /*float: left;*/
+    /*clear: all;*/
+    /*border: 5px solid blue;*/
+    /*display: block;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*float: left;*/
+    /*background-image: url("http://localhost:5000/static/gotos-logo-02.png") no-repeat;*/
+    /*display: block;*/
+    height: auto;
+  }
+  
   .break {
     display: block;
   }
 
+  #container {
+    border: 1px solid white;
+    width: 100%;
+    /*height: auto;*/
+  }
+
   /* 2-column layout stuff */
   #content {
-    margin-right: 300px;
-    border: 1px solid black;
-    min-width: 300px;
+    /*margin-right: 300px;*/
+    margin-left: 10px;
+    /*border: 1px solid white;*/
+    width: 675px;
+    height: 100%;
+    padding-right: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1em;
   }
-  #navbar {
+  
+  #navbar-side {
     float: right;
-    width: 300px;
+    width: 250px;
+    border: 0px solid red;
+    /*margin-left: 35px;*/
+    padding-left: 15px;
+    height: 100%;
+  }
+  
+  #navbar-top {
+    display: none;
+    max-width: 675px;
+    min-width: 300px;
+    width: 100%;
+    /*padding-right: 40px;*/
+    /*margin-right: 300px;*/
+    margin-left: 10px;
+  }
+
+  #logo {
+    margin: 0 0 0 5px;
+    padding: 0;
+  }
+
+  #logo-350w {
+    display: none;
+    margin: 0 0 0 5px;
+    padding: 0;
+  }
+
+  #top {
+    width: 100%;
     border: 1px solid black;
   }
 
-  @media (max-width: 800px) {
-    #navbar {
+  #footer {
+    max-width: 675px;
+    min-width: 300px;
+    width: 100%;
+    /*padding-right: 40px;*/
+    /*margin-right: 300px;*/
+    margin-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .9em;
+  }
+
+  @media screen and (max-width: 1000px) and (min-width: 1px) {
+    #navbar-side {
       display: none;
     }
+    #navbar-top {
+      display: block;
+    }
     #content {
+      max-width: 675px;
+      min-width: 300px;
       width: 100%;
+    }
+    #logo {
+      display: none;
+    }
+    #logo-350w {
+      display: block;
+    }
+    #content {
+      font-size: 1em;
+    }
+    #container {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1001px) {
+    /*#navbar-side {
+      display: block;
+      text-align: left;
+      margin-right: 200px;
+      border: 1px solid black;
+    }*/
+    #container {
+      width: 1001px;
     }
   }
   </style>
@@ -71,26 +171,48 @@
 <!-- This is the header block -->
 {% comment %}<code>{{request}}</code>{% endcomment %}
 
-<div id="heading1">
-  <!-- <div id="heading1-container"> -->
-    <div id="heading-text-1">Ghosts of the Old System</div>
-    <!-- <div class="break"></div> -->
-    <!-- <div id="heading-text-2">...continue to haunt the new</div> -->
-  <!-- </div> -->
-</div>
-<div id="heading2">
-</div>
+<p id="logo">
+  <img src="/static/gotos-logo-02.png" />
+</p>
+
+<p id="logo-350w">
+  <img src="/static/gotos-logo-02-350w.png" />
+</p>
 {% endblock %}
 
 <div class="break" style="height: 10px;"></div>
 
 <div id="container">
-  <div id="navbar">Navigation</div>
+  <div id="navbar-top">
+  <h3>Navigation</h3>
+    <p>
+      Navigation 1
+      &nbsp;|&nbsp;
+      Navigation 2
+      &nbsp;|&nbsp;
+      Navigation 3
+      &nbsp;|&nbsp;
+      Navigation 4
+      &nbsp;|&nbsp;
+      Navigation 5
+    </p>
+  </div>
+  <div id="navbar-side">
+    <h3>Navigation</h3>
+    <p>This is Navigation 1</p>
+    <p>This is Navigation 2</p>
+    <p>This is Navigation 3</p>
+    <p>This is Navigation 4</p>
+    <p>This is Navigation 5</p>
+  </div>
   <div id="content">{% block content %}{% endblock %}</div>
 </div>
 
 {% block footer %}
 <!-- This is the footer block -->
+<p id="footer">
+&copy; 2016 Jerry Howard
+</p>
 {% endblock %}
 
 </body>

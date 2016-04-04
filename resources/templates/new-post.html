@@ -19,7 +19,7 @@ NEW POST:
         method="POST">
     <input type="hidden" id="__anti-forgery-token" name="__anti-forgery-token" 
       value="{{anti-forgery-token}}" />
-    <table id="post_form_table">
+    <table id="post_form_table" border="1">
         <tr>
             <td valign="top">
                 Live?
@@ -81,7 +81,7 @@ NEW POST:
             </td>
             <td>
             {% if edit-mode %}
-                <textarea id="content" name="content" rows="15" cols="85"
+                <textarea id="content" name="content" rows="15" cols="95"
                     >{{post.content}}</textarea>
             {% else %}
                 <textarea id="content" name="content" rows="15" cols="85"

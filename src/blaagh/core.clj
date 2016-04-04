@@ -2,6 +2,7 @@
   (:require [blaagh.middleware :as middleware]
             [blaagh.controllers :as controllers]
             [compojure.core :refer :all]
+            [compojure.route :as route]
             [org.httpkit.server :refer [run-server]]
             [ring.middleware.reload :as reload]
             [ring.middleware.defaults :refer :all]
@@ -12,6 +13,7 @@
 
 (defroutes all-routes
     (GET "/" [request] controllers/home-handler)
+    (route/resources "/static") ; Serve static resources at this path (resources/public)
     (GET "/admin/post/edit/:id" [request] controllers/edit-post-handler)
     (POST "/admin/post/update" [request] controllers/edit-post-update!)
     (POST "/admin/post/delete" [request] controllers/edit-post-delete!)
